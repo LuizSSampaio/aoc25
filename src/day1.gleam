@@ -4,7 +4,6 @@ import gleam/result
 import gleam/string
 import simplifile
 
-/// Must receive an file containing dial move instructions and return the number of times that the dial reached 0
 pub fn solve(input_path: String) -> #(Int, Int) {
   let assert Ok(content) = simplifile.read(from: input_path)
   content
@@ -31,13 +30,13 @@ fn solve_instructions(instructions: List(Int), start: Int) -> #(Int, Int) {
 fn parse_instruction(instruction: String) -> Int {
   case instruction {
     "R" <> val -> int.parse(val) |> result.unwrap(0)
-    "L" <> val -> -1 * { int.parse(val) |> result.unwrap(0) }
+    "L" <> val -> int.parse(val) |> result.unwrap(0) |> int.negate()
     _ -> 0
   }
 }
 
 fn wrap(n: Int) -> Int {
-  let remainder = n % 100
+  let remainder = n |> int.remainder(100) |> result.unwrap(0)
   case remainder < 0 {
     True -> remainder + 100
     False -> remainder
@@ -45,8 +44,9 @@ fn wrap(n: Int) -> Int {
 }
 
 fn pass_zero(start: Int, rotation: Int) -> Int {
-  let rotation_magnitude = { rotation / 100 } |> int.absolute_value()
-  let rotation_reduced = rotation % 100
+  let rotation_magnitude =
+    rotation |> int.divide(100) |> result.unwrap(0) |> int.absolute_value()
+  let rotation_reduced = rotation |> int.remainder(100) |> result.unwrap(0)
 
   case start + rotation_reduced {
     x if x <= 0 && start != 0 -> 1
