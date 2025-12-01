@@ -14,24 +14,18 @@ pub fn solve(input_path: String) -> #(Int, Int) {
 }
 
 fn solve_instructions(instructions: List(Int), start: Int) -> #(Int, Int) {
-  let #(acc, counter2) = {
-    let first = list.first(instructions) |> result.unwrap(0)
-    #(wrap(start + first), pass_zero(start, first))
-  }
-  let counter1 = case acc {
-    0 -> 1
-    _ -> 0
-  }
-
-  case list.length(instructions) > 1 {
-    True -> {
-      let res = {
-        instructions |> list.drop(1) |> solve_instructions(acc)
-      }
-      #(res.0 + counter1, res.1 + counter2)
+  list.fold(instructions, #(0, 0, start), fn(acc, instruction) {
+    let #(counter1, counter2, pos) = acc
+    let new_pos = wrap(pos + instruction)
+    let passes = pass_zero(pos, instruction)
+    let hits = case new_pos {
+      0 -> 1
+      _ -> 0
     }
-    False -> #(counter1, counter2)
-  }
+
+    #(counter1 + hits, counter2 + passes, new_pos)
+  })
+  |> fn(res) { #(res.0, res.1) }
 }
 
 fn parse_intruction(instruction: String) -> Int {
