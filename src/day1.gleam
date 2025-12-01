@@ -9,7 +9,7 @@ pub fn solve(input_path: String) -> #(Int, Int) {
   let assert Ok(content) = simplifile.read(from: input_path)
   content
   |> string.split("\n")
-  |> list.map(parse_intruction)
+  |> list.map(parse_instruction)
   |> solve_instructions(50)
 }
 
@@ -28,7 +28,7 @@ fn solve_instructions(instructions: List(Int), start: Int) -> #(Int, Int) {
   |> fn(res) { #(res.0, res.1) }
 }
 
-fn parse_intruction(instruction: String) -> Int {
+fn parse_instruction(instruction: String) -> Int {
   case instruction {
     "R" <> val -> int.parse(val) |> result.unwrap(0)
     "L" <> val -> -1 * { int.parse(val) |> result.unwrap(0) }
@@ -37,10 +37,10 @@ fn parse_intruction(instruction: String) -> Int {
 }
 
 fn wrap(n: Int) -> Int {
-  let reminder = n % 100
-  case reminder < 0 {
-    True -> reminder + 100
-    False -> reminder
+  let remainder = n % 100
+  case remainder < 0 {
+    True -> remainder + 100
+    False -> remainder
   }
 }
 
