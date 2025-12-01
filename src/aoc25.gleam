@@ -1,5 +1,7 @@
+import day1
+import gleam/int
 import gleam/io
 
 pub fn main() -> Nil {
-  io.println("Hello from aoc25!")
+  io.println("Day 1: " <> int.to_string(day1.solve()))
 }
