@@ -4,16 +4,14 @@ import gleam/result
 import gleam/string
 import simplifile
 
+const start_pos = 50
+
 pub fn solve(input_path: String) -> #(Int, Int) {
   let assert Ok(content) = simplifile.read(from: input_path)
   content
   |> string.split("\n")
   |> list.map(parse_instruction)
-  |> solve_instructions(50)
-}
-
-fn solve_instructions(instructions: List(Int), start: Int) -> #(Int, Int) {
-  list.fold(instructions, #(0, 0, start), fn(acc, instruction) {
+  |> list.fold(#(0, 0, start_pos), fn(acc, instruction) {
     let #(counter1, counter2, pos) = acc
     let new_pos = wrap(pos + instruction)
     let passes = pass_zero(pos, instruction)
