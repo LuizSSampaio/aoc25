@@ -10,7 +10,22 @@ pub fn solve() -> Int {
   content
   |> string.split("\n")
   |> list.map(parse_intruction)
-  todo
+  |> solve_instructions(0)
+}
+
+fn solve_instructions(instructions: List(Int), start: Int) -> Int {
+  let acc =
+    { start + { list.first(instructions) |> result.unwrap(0) } } |> wrap()
+  let counter = case acc {
+    0 -> 1
+    _ -> 0
+  }
+
+  case list.length(instructions) > 1 {
+    True ->
+      { instructions |> list.drop(1) |> solve_instructions(acc) } + counter
+    False -> counter
+  }
 }
 
 fn parse_intruction(instruction: String) -> Int {
