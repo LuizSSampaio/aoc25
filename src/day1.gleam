@@ -10,7 +10,7 @@ pub fn solve() -> Int {
   content
   |> string.split("\n")
   |> list.map(parse_intruction)
-  |> solve_instructions(0)
+  |> solve_instructions(50)
 }
 
 fn solve_instructions(instructions: List(Int), start: Int) -> Int {
