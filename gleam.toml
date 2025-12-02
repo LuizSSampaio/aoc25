@@ -1,4 +1,4 @@
-name = "aoc25"
+name = "aoc"
 version = "1.0.0"
 
 # Fill out these fields if you intend to generate HTML documentation or publish
@@ -14,7 +14,11 @@ version = "1.0.0"
 
 [dependencies]
 gleam_stdlib = ">= 0.44.0 and < 2.0.0"
-simplifile = ">= 2.3.1 and < 3.0.0"
+gladvent = ">= 2.2.1 and < 3.0.0"
 
 [dev-dependencies]
 gleeunit = ">= 1.0.0 and < 2.0.0"
+
+[gladvent.2025]
+1 = { pt_1 = 1043, pt_2 = 5963 }
+2 = { pt_1 = 23560874270, pt_2 = 44143124633 }
