@@ -67,6 +67,7 @@ fn digits_count(number: Int) -> Int {
   |> maths.logarithm_10()
   |> result.unwrap(1.0)
   |> float.truncate()
+  |> int.add(1)
 }
 
 fn id_is_valid(id: String) -> Bool {
