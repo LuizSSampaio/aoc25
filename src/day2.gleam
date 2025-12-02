@@ -21,7 +21,8 @@ pub fn solve(input_path: String) -> #(Int, Int) {
       |> viable_range()
       |> list.filter(fn(x) {
         x
-        |> digits_count()
+        |> int.to_string()
+        |> string.length()
         |> int.is_even()
       })
       |> list.fold(0, fn(sum, id) {
@@ -57,15 +58,6 @@ fn viable_range(range: Range(Int)) -> List(Int) {
     len1, len2 if len1 == len2 && len1 % 2 != 0 -> list.new()
     _, _ -> list.range(range.min, range.max)
   }
-}
-
-fn digits_count(number: Int) -> Int {
-  number
-  |> int.to_float()
-  |> maths.logarithm_10()
-  |> result.unwrap(1.0)
-  |> float.truncate()
-  |> int.add(1)
 }
 
 fn id_is_valid(id: String) -> Bool {
