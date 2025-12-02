@@ -53,7 +53,9 @@ fn parse_range(range: String) -> Range(Int) {
 
 fn id_is_valid_pt1(id: String) -> Bool {
   let len = string.length(id)
-  string.slice(id, 0, len / 2) != string.slice(id, len / 2, len)
+  use <- bool.guard(len % 2 != 0, True)
+  let half = string.slice(id, 0, len / 2)
+  half <> half != id
 }
 
 fn id_is_valid_pt2(id: String) -> Bool {
