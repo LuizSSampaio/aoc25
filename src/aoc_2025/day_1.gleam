@@ -1,18 +1,16 @@
 import gleam/int
 import gleam/list
-import gleam/string
+import utils/parse_utils
 import utils/result_utils
 
 const start_pos = 50
 
 pub fn parse(input: String) -> List(Int) {
   input
-  |> string.split("\n")
-  |> list.map(fn(instruction) {
-    case instruction {
-      "R" <> val -> int.parse(val) |> result_utils.unsafe_unwrap()
-      "L" <> val ->
-        int.parse(val) |> result_utils.unsafe_unwrap() |> int.negate()
+  |> parse_utils.parsed_lines(fn(line) {
+    case line {
+      "R" <> val -> parse_utils.unsafe_int_parse(val)
+      "L" <> val -> parse_utils.unsafe_int_parse(val) |> int.negate()
       _ -> 0
     }
   })
