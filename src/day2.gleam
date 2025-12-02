@@ -1,6 +1,5 @@
 import gleam/float
 import gleam/int
-import gleam/io
 import gleam/list
 import gleam/result
 import gleam/string
@@ -13,7 +12,6 @@ type Range(kind) {
 
 pub fn solve(input_path: String) -> #(Int, Int) {
   let assert Ok(content) = simplifile.read(from: input_path)
-  io.println(content)
   content
   |> string.split(",")
   |> list.map(parse_range)
