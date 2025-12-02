@@ -71,6 +71,6 @@ fn digits_count(number: Int) -> Int {
 }
 
 fn id_is_valid(id: String) -> Bool {
-  string.slice(id, 0, string.length(id) / 2)
-  == string.slice(id, string.length(id) / 2, string.length(id))
+  let len = string.length(id)
+  string.slice(id, 0, len / 2) != string.slice(id, len / 2, len)
 }
