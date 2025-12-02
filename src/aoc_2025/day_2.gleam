@@ -2,7 +2,7 @@ import gleam/bool
 import gleam/int
 import gleam/list
 import gleam/string
-import utils/int_utils
+import utils/parse_utils
 
 pub fn parse(input: String) -> List(#(Int, Int)) {
   input
@@ -12,7 +12,7 @@ pub fn parse(input: String) -> List(#(Int, Int)) {
       range
       |> string.trim()
       |> string.split("-")
-      |> list.map(int_utils.unsafe_parse)
+      |> list.map(parse_utils.unsafe_parse)
     #(from, to)
   })
 }
