@@ -1,8 +1,13 @@
+import gleam/bool
+import gleam/float
 import gleam/int
+import gleam/io
 import gleam/list
 import gleam/order
+import gleam/pair
 import gleam/string
 import utils/parse_utils
+import utils/result_utils
 
 pub fn parse(input: String) -> List(List(Int)) {
   input
@@ -27,5 +32,24 @@ pub fn pt_1(banks: List(List(Int))) {
 }
 
 pub fn pt_2(banks: List(List(Int))) {
-  todo as "part 2 not implemented"
+  max_joltage(banks, 12)
+}
+
+fn max_joltage(banks: List(List(Int)), digits: Int) -> Int {
+  use acc, bank <- list.fold(banks, 0)
+  list.range(digits - 1, 0)
+  |> list.fold(#(0, bank), fn(acc, i) {
+    let #(val, bank) = acc
+    let #(max, loc) =
+      list.reverse(bank)
+      |> list.drop(i)
+      |> list.reverse()
+      |> list.index_map(fn(n, i) { #(n, i) })
+      |> list.max(fn(a, b) { int.compare(a.0, b.0) })
+      |> result_utils.unsafe_unwrap()
+
+    #(val * 10 + max, list.drop(bank, loc + 1))
+  })
+  |> pair.first()
+  |> int.add(acc)
 }
